@@ -1,0 +1,105 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--====================================================================-->
+    <!-- 1.最原始的装配 -->
+    <!--====================================================================-->
+    <!--声明accountDao对象,交给spring创建 -->
+    <!--<bean name="accountDao" class="com.daimamiao.hellospring.dao.AccountDaoImpl"/>-->
+    <!-- 声明accountService对象,交给spring创建 -->
+    <!--<bean id="accountService" class="com.daimamiao.hellospring.service.AccountServiceImpl">-->
+        <!--&lt;!&ndash; 1.通过set方法注入 &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="accountDao" ref="accountDao"/>&ndash;&gt;-->
+        <!--&lt;!&ndash; 2.通过构造器注入 &ndash;&gt;-->
+        <!--<constructor-arg ref="accountDao" />-->
+    <!--</bean>-->
+
+
+
+    <!--====================================================================-->
+    <!-- 2.自动装配autowire(byType, byName, constructor) -->
+    <!--====================================================================-->
+    <!--<bean name="accountDao" class="com.daimamiao.hellospring.dao.AccountDaoImpl"/>-->
+    <!--<bean id="accountService" autowire="byType" class="com.daimamiao.hellospring.service.AccountServiceImpl" />-->
+    <!--<bean id="accountService" autowire="byName" class="com.daimamiao.hellospring.service.AccountServiceImpl" />-->
+    <!--<bean id="accountService" autowire="constructor" class="com.daimamiao.hellospring.service.AccountServiceImpl" />-->
+
+
+
+    <!--====================================================================-->
+    <!-- 3.启动注解驱动，通过注解自动装配 -->
+    <!--====================================================================-->
+    <!--<context:annotation-config />-->
+    <!-- 同时存在两个AccountDaoImpl的bean，一个是accountDao1，另一个accountDao2，这时候就需要@Qualifier("accountDao1")与@Autowired结合 -->
+    <!--<bean id="accountDao1" class="com.daimamiao.hellospring.dao.AccountDaoImpl" />-->
+    <!--<bean id="accountDao2" class="com.daimamiao.hellospring.dao.AccountDaoImpl" />-->
+    <!--<bean id="accountService" class="com.daimamiao.hellospring.service.AccountServiceImpl" />-->
+    <!--<context:component-scan base-package="com.daimamiao.hellospring" />-->
+
+
+
+    <!--====================================================================-->
+    <!-- 基于@Value注解的自动装配以及properties文件读取 -->
+    <!--====================================================================-->
+    <!--基于占位符方式 配置单个properties -->
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+    <!--基于占位符方式 配置多个properties -->
+    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">-->
+        <!--<property name="location" value="classpath:jdbc.properties"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;基于SpEL表达式 配置多个properties id值为configProperties 提供java代码中使用 &ndash;&gt;-->
+    <!--<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>classpath:jdbc.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<context:annotation-config />-->
+    <!--<bean id="accountDao" class="com.daimamiao.hellospring.dao.AccountDaoImpl"/>-->
+    <!--<bean id="accountService" class="com.daimamiao.hellospring.service.AccountServiceImpl"/>-->
+
+
+
+    <!--====================================================================-->
+    <!-- 声明包扫描需要在依赖的类中添加@component、@Service或者@Repository(后来两者的语意性更强) -->
+    <!--====================================================================-->
+    <context:component-scan base-package="com.daimamiao.hellospring" />
+
+
+
+
+
+    <!--<bean id="account" scope="prototype" class="com.daimamiao.hellospring.pojo.Account">-->
+        <!--<property name="name" value="xcc" />-->
+        <!--<property name="pwd" value="00oo" />-->
+        <!--<property name="friends">-->
+            <!--<set>-->
+                <!--<value>lzb</value>-->
+                <!--<value>fx</value>-->
+                <!--<value>fy</value>-->
+                <!--<value>jzx</value>-->
+            <!--</set>-->
+        <!--</property>-->
+        <!--<property name="cities">-->
+            <!--<list>-->
+                <!--<value>zhanjiang</value>-->
+                <!--<value>zhejiang</value>-->
+                <!--<value>shanghai</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="books">-->
+            <!--<map>-->
+                <!--<entry key="10" value="Spring in action" />-->
+                <!--<entry key="11" value="TCP/IP" />-->
+                <!--<entry key="12" value="Unix" />-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>
